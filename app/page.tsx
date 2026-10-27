@@ -144,7 +144,7 @@ const socialLinks = [
     ? [
         {
           label: "Email",
-          href: "https://mail.google.com/mail/?view=cm&fs=1&to=maurishasaragih@gmail.com",
+          href: `mailto:${CONTACT_EMAIL}`,
           Icon: Mail,
           external: true,
         },
@@ -425,6 +425,24 @@ export default function Home() {
           }
           @media (prefers-reduced-motion: reduce) { .timeline-trigger, .timeline-marker span { transition: none; } .timeline-details { animation: none; } }
 
+          .featured-finance-project { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(280px,.8fr); gap:30px; align-items:center; margin: 0 0 34px; padding:16px; border:1px solid var(--line, rgba(255,255,255,.16)); background:linear-gradient(120deg, rgba(255,255,255,.025), rgba(199,255,84,.018)); }
+          .finance-preview-link { display:block; min-width:0; overflow:hidden; border:1px solid rgba(255,255,255,.1); background:#f7f7f7; }
+          .finance-preview-image { display:block; width:100%; height:auto; aspect-ratio: 16 / 9; object-fit:cover; object-position:top center; transition:transform .45s ease; }
+          .finance-preview-link:hover .finance-preview-image { transform:scale(1.025); }
+          .featured-finance-copy { padding:18px 12px 18px 0; }
+          .featured-project-label { display:inline-block; color:var(--accent, #d2fa79); border:1px solid var(--accent, #d2fa79); padding:7px 10px; font:10px monospace; letter-spacing:.12em; margin-bottom:20px; }
+          .featured-finance-copy h3 { font-size:clamp(25px,3vw,38px); letter-spacing:-.055em; line-height:1.12; margin:0 0 14px; }
+          .featured-finance-copy p { color:var(--muted, #aaa); font-size:13px; line-height:1.85; margin:0 0 20px; }
+          .featured-finance-copy .tag-row { display:flex; flex-wrap:wrap; gap:8px; }
+          .featured-finance-copy .tag-row span { border:1px solid var(--line, rgba(255,255,255,.18)); padding:7px 9px; color:#bcbcbc; font-size:10px; }
+          .featured-project-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+          .featured-project-primary, .featured-project-secondary { display:inline-flex; align-items:center; justify-content:space-between; gap:18px; padding:12px 15px; min-height:44px; border:1px solid var(--accent, #d2fa79); background:transparent; color:var(--accent, #d2fa79); font:inherit; font-size:12px; text-decoration:none; cursor:pointer; transition:background .2s ease,color .2s ease; }
+          .featured-project-primary:hover { background:var(--accent, #d2fa79); color:#111; }
+          .featured-project-secondary { border-color:var(--line, rgba(255,255,255,.25)); color:inherit; }
+          .featured-project-secondary:hover { border-color:var(--accent, #d2fa79); color:var(--accent, #d2fa79); }
+          @media (max-width:760px) { .featured-finance-project { grid-template-columns:1fr; gap:18px; padding:10px; } .featured-finance-copy { padding:12px 8px 14px; } .featured-project-label { margin-bottom:14px; } .featured-project-actions { margin-top:22px; } .featured-project-primary, .featured-project-secondary { flex:1; } }
+          @media (prefers-reduced-motion: reduce) { .finance-preview-image { transition:none; } }
+
           .portfolio-filters { display:flex; flex-wrap:wrap; gap:10px; margin: 0 0 26px; }
           .filter-chip { border:1px solid var(--line, rgba(255,255,255,.18)); background:transparent; color:inherit; padding:10px 14px; border-radius:999px; font:inherit; font-size:12px; cursor:pointer; transition:background .2s ease, color .2s ease, border-color .2s ease; }
           .filter-chip:hover, .filter-chip.active { background:var(--accent, #d2fa79); color:#111; border-color:var(--accent, #d2fa79); }
@@ -465,6 +483,50 @@ export default function Home() {
             and easier to understand.
           </p>
         </div>
+        <article className="featured-finance-project">
+          <a
+            className="finance-preview-link"
+            href="/finance-dashboard-preview.png"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open Personal Finance Dashboard preview image"
+          >
+            <img
+              className="finance-preview-image"
+              src="/finance-dashboard-preview.png"
+              alt="Personal Finance Dashboard showing cash flow, expense categories, budget versus actual, and monthly calendar"
+            />
+          </a>
+          <div className="featured-finance-copy">
+            <span className="featured-project-label">FEATURED PERSONAL PROJECT</span>
+            <h3>Personal Finance Dashboard</h3>
+            <p>
+              A personal finance web app concept for tracking transactions, monitoring monthly budgets,
+              and understanding cash flow in one place.
+            </p>
+            <div className="tag-row">
+              <span>Dashboard Design</span>
+              <span>Data Visualization</span>
+              <span>Business Logic</span>
+              <span>Automation</span>
+            </div>
+            <div className="featured-project-actions">
+              <button
+                className="featured-project-primary"
+                type="button"
+                onClick={() => {
+                  setOpenCaseStudy("finance");
+                  window.setTimeout(() => document.getElementById("finance-case-study")?.scrollIntoView({ behavior: "smooth", block: "center" }), 50);
+                }}
+              >
+                View Case Study <span aria-hidden="true">↗</span>
+              </button>
+              <a className="featured-project-secondary" href="/finance-dashboard-preview.png" target="_blank" rel="noreferrer">
+                Preview UI <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </article>
         <div className="portfolio-filters" aria-label="Filter projects">
           {projectFilters.map((filter) => (
             <button
@@ -522,7 +584,7 @@ export default function Home() {
             {caseStudies.map((study) => {
               const isOpen = openCaseStudy === study.id;
               return (
-                <article className={`case-study-card ${isOpen ? "case-study-open" : ""}`} key={study.id}>
+                <article id={study.id === "finance" ? "finance-case-study" : undefined} className={`case-study-card ${isOpen ? "case-study-open" : ""}`} key={study.id}>
                   <button
                     className="case-study-toggle"
                     type="button"
