@@ -56,15 +56,6 @@ const projectItems = [
     symbol: "⌘",
   },
   {
-    number: "04",
-    category: "PERSONAL PRODUCT · IN PROGRESS",
-    title: "Personal Finance Dashboard",
-    description:
-      "A personal project concept for tracking income, expenses, monthly budgets, and cash flow in one clear dashboard.",
-    tags: ["Dashboard", "Finance", "Automation"],
-    symbol: "↗",
-  },
-  {
     number: "05",
     category: "PROCESS DESIGN · CONCEPT",
     title: "Warehouse Operations Case Study",
@@ -157,6 +148,7 @@ export default function Home() {
   const [projectFilter, setProjectFilter] = useState("All");
   const [openCaseStudy, setOpenCaseStudy] = useState<string | null>(null);
   const [openExperience, setOpenExperience] = useState<string | null>("kamadjaja");
+  const [showFinancePreview, setShowFinancePreview] = useState(false);
 
   return (
     <main>
@@ -443,6 +435,18 @@ export default function Home() {
           @media (max-width:760px) { .featured-finance-project { grid-template-columns:1fr; gap:18px; padding:10px; } .featured-finance-copy { padding:12px 8px 14px; } .featured-project-label { margin-bottom:14px; } .featured-project-actions { margin-top:22px; } .featured-project-primary, .featured-project-secondary { flex:1; } }
           @media (prefers-reduced-motion: reduce) { .finance-preview-image { transition:none; } }
 
+          .finance-preview-link { width:100%; padding:0; border:1px solid rgba(255,255,255,.1); cursor:zoom-in; text-align:left; }
+          .finance-title-button { padding:0; border:0; background:transparent; color:inherit; font:inherit; text-align:left; cursor:pointer; }
+          .finance-title-button:hover { color:var(--accent, #d2fa79); }
+          .finance-preview-modal { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:clamp(12px,3vw,36px); background:rgba(0,0,0,.88); backdrop-filter:blur(8px); }
+          .finance-preview-dialog { position:relative; width:min(1200px,100%); max-height:92vh; overflow:auto; border:1px solid var(--line, rgba(255,255,255,.2)); background:#111; box-shadow:0 24px 90px rgba(0,0,0,.5); }
+          .finance-preview-dialog img { display:block; width:100%; height:auto; }
+          .finance-preview-modal-head { position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 18px; color:#f5f5f5; background:#111; border-bottom:1px solid var(--line, rgba(255,255,255,.15)); }
+          .finance-preview-modal-head span { color:var(--accent, #d2fa79); font:11px monospace; letter-spacing:.08em; }
+          .finance-preview-close { display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border:1px solid var(--line, rgba(255,255,255,.25)); background:transparent; color:inherit; cursor:pointer; }
+          .finance-preview-close:hover { border-color:var(--accent, #d2fa79); color:var(--accent, #d2fa79); }
+          @media (max-width:760px) { .finance-preview-modal { padding:8px; } .finance-preview-dialog { max-height:96vh; } .finance-preview-modal-head { padding:10px 12px; } }
+
           .portfolio-filters { display:flex; flex-wrap:wrap; gap:10px; margin: 0 0 26px; }
           .filter-chip { border:1px solid var(--line, rgba(255,255,255,.18)); background:transparent; color:inherit; padding:10px 14px; border-radius:999px; font:inherit; font-size:12px; cursor:pointer; transition:background .2s ease, color .2s ease, border-color .2s ease; }
           .filter-chip:hover, .filter-chip.active { background:var(--accent, #d2fa79); color:#111; border-color:var(--accent, #d2fa79); }
@@ -484,22 +488,30 @@ export default function Home() {
           </p>
         </div>
         <article className="featured-finance-project">
-          <a
+          <button
             className="finance-preview-link"
-            href="/finance-dashboard-preview.png"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Open Personal Finance Dashboard preview image"
+            type="button"
+            onClick={() => setShowFinancePreview(true)}
+            aria-label="Open Personal Finance Dashboard preview"
           >
             <img
               className="finance-preview-image"
               src="/finance-dashboard-preview.png"
               alt="Personal Finance Dashboard showing cash flow, expense categories, budget versus actual, and monthly calendar"
             />
-          </a>
+          </button>
           <div className="featured-finance-copy">
             <span className="featured-project-label">FEATURED PERSONAL PROJECT</span>
-            <h3>Personal Finance Dashboard</h3>
+            <h3>
+              <button
+                className="finance-title-button"
+                type="button"
+                onClick={() => setShowFinancePreview(true)}
+                aria-haspopup="dialog"
+              >
+                Personal Finance Dashboard
+              </button>
+            </h3>
             <p>
               A personal finance web app concept for tracking transactions, monitoring monthly budgets,
               and understanding cash flow in one place.
@@ -521,9 +533,14 @@ export default function Home() {
               >
                 View Case Study <span aria-hidden="true">↗</span>
               </button>
-              <a className="featured-project-secondary" href="/finance-dashboard-preview.png" target="_blank" rel="noreferrer">
+              <button
+                className="featured-project-secondary"
+                type="button"
+                onClick={() => setShowFinancePreview(true)}
+                aria-haspopup="dialog"
+              >
                 Preview UI <span aria-hidden="true">↗</span>
-              </a>
+              </button>
             </div>
           </div>
         </article>
@@ -725,6 +742,39 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {showFinancePreview && (
+        <div
+          className="finance-preview-modal"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setShowFinancePreview(false);
+          }}
+        >
+          <section
+            className="finance-preview-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="finance-preview-title"
+          >
+            <div className="finance-preview-modal-head">
+              <span id="finance-preview-title">PERSONAL FINANCE DASHBOARD · UI PREVIEW</span>
+              <button
+                className="finance-preview-close"
+                type="button"
+                aria-label="Close dashboard preview"
+                onClick={() => setShowFinancePreview(false)}
+              >
+                <X size={19} />
+              </button>
+            </div>
+            <img
+              src="/finance-dashboard-preview.png"
+              alt="Full preview of the Personal Finance Dashboard, including cash flow, spending categories, budget versus actual, and calendar."
+            />
+          </section>
+        </div>
+      )}
 
       <footer className="site-footer section-wrap">
         <a className="wordmark footer-mark" href="#home" aria-label="Back to top">
