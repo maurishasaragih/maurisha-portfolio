@@ -51,9 +51,54 @@ const projectItems = [
     category: "SYSTEMS & OPERATIONS",
     title: "Inventory Management & Operational Workflows",
     description:
-      "Applying hands-on inventory  to understand stock movements, cycle counting, stock adjustments, and opportunities to improve operational workflows.",
+      "Exploring inventory processes, cycle counting, stock adjustments, and opportunities to improve operational workflows through clearer system requirements.",
     tags: ["Inventory", "Cycle Count", "Workflow"],
     symbol: "⌘",
+  },
+  {
+    number: "04",
+    category: "PERSONAL PRODUCT · IN PROGRESS",
+    title: "Personal Finance Dashboard",
+    description:
+      "A personal project concept for tracking income, expenses, monthly budgets, and cash flow in one clear dashboard.",
+    tags: ["Dashboard", "Finance", "Automation"],
+    symbol: "↗",
+  },
+  {
+    number: "05",
+    category: "PROCESS DESIGN · CONCEPT",
+    title: "Warehouse Operations Case Study",
+    description:
+      "A portfolio case-study concept mapping inbound, outbound, inventory monitoring, and cycle-count workflows using sample data.",
+    tags: ["System Analysis", "Warehouse", "Process Flow"],
+    symbol: "⌘",
+  },
+];
+
+const projectFilters = ["All", "System Analysis", "Dashboards", "Web Development", "Automation"];
+
+const caseStudies = [
+  {
+    id: "warehouse",
+    number: "01",
+    type: "PROCESS ANALYSIS · CONCEPT CASE STUDY",
+    title: "Making warehouse workflows easier to monitor",
+    status: "Concept case study — illustrative, not a claim of a completed client deliverable.",
+    problem: "Warehouse workflows can involve several connected steps. When status visibility is fragmented, it can be harder to identify where an order or inventory task needs attention.",
+    approach: "Map the process from start to finish, identify key status changes and handoffs, document validation points, and define the operational information a monitoring view should surface.",
+    solution: "A proposed workflow map and dashboard concept covering inbound, outbound, cycle count, stock adjustment, and exception monitoring using dummy data.",
+    skills: ["Requirements analysis", "Process mapping", "Functional thinking", "Dashboard design"],
+  },
+  {
+    id: "finance",
+    number: "02",
+    type: "PERSONAL PROJECT · IN PROGRESS",
+    title: "A clearer view of personal cash flow",
+    status: "Personal project concept — features may change during development.",
+    problem: "Recording transactions alone does not always make it easy to understand spending patterns or whether monthly budgets are on track.",
+    approach: "Organize transactions, categories, accounts, and monthly budgets into a consistent data model, then define summary metrics and useful filters.",
+    solution: "A planned dashboard for income, expenses, transfers, category breakdowns, monthly budget comparison, and cash-flow trends.",
+    skills: ["Data modeling", "Dashboard design", "Business logic", "Automation"],
   },
 ];
 
@@ -99,7 +144,7 @@ const socialLinks = [
     ? [
         {
           label: "Email",
-          href: "https://mail.google.com/mail/?view=cm&fs=1&to=maurishasaragih@gmail.com",
+          href: `mailto:${CONTACT_EMAIL}`,
           Icon: Mail,
           external: true,
         },
@@ -109,6 +154,8 @@ const socialLinks = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [projectFilter, setProjectFilter] = useState("All");
+  const [openCaseStudy, setOpenCaseStudy] = useState<string | null>(null);
 
   return (
     <main>
@@ -221,7 +268,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="content-section -section" id="experience">
+      <section className="content-section experience-section" id="experience">
         <div className="section-wrap">
           <div className="section-heading">
             <span className="section-number">02 / EXPERIENCE</span>
@@ -320,8 +367,30 @@ export default function Home() {
             and easier to understand.
           </p>
         </div>
+        <div className="portfolio-filters" aria-label="Filter projects">
+          {projectFilters.map((filter) => (
+            <button
+              key={filter}
+              type="button"
+              className={projectFilter === filter ? "filter-chip active" : "filter-chip"}
+              aria-pressed={projectFilter === filter}
+              onClick={() => setProjectFilter(filter)}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
         <div className="project-grid">
-          {projectItems.map((project) => (
+          {projectItems
+            .filter((project) => {
+              if (projectFilter === "All") return true;
+              if (projectFilter === "System Analysis") return project.tags.some((tag) => ["System Analysis", "Inventory", "Cycle Count", "Workflow", "Process Flow"].includes(tag));
+              if (projectFilter === "Dashboards") return project.tags.some((tag) => ["Dashboards", "Dashboard", "Reporting"].includes(tag));
+              if (projectFilter === "Web Development") return project.tags.includes("Web Development");
+              if (projectFilter === "Automation") return project.tags.includes("Automation");
+              return true;
+            })
+            .map((project) => (
             <article className="project-card" key={project.number}>
               <div className="project-visual">
                 <span className="project-visual-index">
@@ -345,8 +414,50 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <div className="case-studies-block">
+          <div className="case-studies-heading">
+            <span className="card-overline">GO BEYOND THE PROJECT CARD</span>
+            <h3>Case studies</h3>
+            <p>See how I approach a problem, structure the analysis, and shape a possible solution.</p>
+          </div>
+          <div className="case-study-list">
+            {caseStudies.map((study) => {
+              const isOpen = openCaseStudy === study.id;
+              return (
+                <article className={`case-study-card ${isOpen ? "case-study-open" : ""}`} key={study.id}>
+                  <button
+                    className="case-study-toggle"
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenCaseStudy(isOpen ? null : study.id)}
+                  >
+                    <span className="case-study-number">{study.number}</span>
+                    <span className="case-study-title-wrap">
+                      <span className="card-overline">{study.type}</span>
+                      <strong>{study.title}</strong>
+                    </span>
+                    <span className="case-study-plus">{isOpen ? "−" : "+"}</span>
+                  </button>
+                  {isOpen && (
+                    <div className="case-study-detail">
+                      <p className="case-study-status">{study.status}</p>
+                      <div className="case-study-columns">
+                        <div><span>01 / PROBLEM</span><p>{study.problem}</p></div>
+                        <div><span>02 / APPROACH</span><p>{study.approach}</p></div>
+                        <div><span>03 / PROPOSED SOLUTION</span><p>{study.solution}</p></div>
+                      </div>
+                      <div className="tag-row">
+                        {study.skills.map((skill) => <span key={skill}>{skill}</span>)}
+                      </div>
+                    </div>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+        </div>
         <p className="section-footnote">
-          Detailed case studies and live links are coming soon.
+          Personal concepts and illustrative case studies are clearly labelled. Add live demos when each project is ready to share.
         </p>
       </section>
 
@@ -465,6 +576,31 @@ export default function Home() {
         </a>
         <span className="footer-year">© {new Date().getFullYear()}</span>
       </footer>
+
+      <style jsx global>{`
+        .portfolio-filters { display:flex; flex-wrap:wrap; gap:10px; margin: 0 0 26px; }
+        .filter-chip { border:1px solid var(--line, rgba(255,255,255,.18)); background:transparent; color:inherit; padding:10px 14px; border-radius:999px; font:inherit; font-size:12px; cursor:pointer; transition:background .2s ease, color .2s ease, border-color .2s ease; }
+        .filter-chip:hover, .filter-chip.active { background:var(--accent, #d2fa79); color:#111; border-color:var(--accent, #d2fa79); }
+        .case-studies-block { margin-top:76px; display:grid; grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr); gap:40px; align-items:start; }
+        .case-studies-heading h3 { font-size:clamp(30px,4vw,44px); letter-spacing:-1.8px; margin:14px 0; }
+        .case-studies-heading p { color:var(--muted, #9a9896); font-size:14px; line-height:1.8; max-width:320px; }
+        .case-study-list { border-top:1px solid var(--line, rgba(255,255,255,.15)); }
+        .case-study-card { border-bottom:1px solid var(--line, rgba(255,255,255,.15)); }
+        .case-study-toggle { display:grid; grid-template-columns:42px 1fr 28px; gap:15px; align-items:center; width:100%; padding:22px 0; text-align:left; color:inherit; background:none; border:0; cursor:pointer; }
+        .case-study-number { color:var(--accent, #d2fa79); font:12px monospace; }
+        .case-study-title-wrap { display:flex; flex-direction:column; gap:8px; }
+        .case-study-title-wrap strong { font-size:clamp(16px,2vw,21px); font-weight:500; line-height:1.35; }
+        .case-study-plus { font-size:24px; text-align:right; color:var(--accent, #d2fa79); }
+        .case-study-detail { padding:0 0 25px 57px; animation:caseStudyIn .2s ease-out; }
+        .case-study-status { color:var(--accent, #d2fa79); font-size:12px; line-height:1.6; margin:0 0 20px; }
+        .case-study-columns { display:grid; grid-template-columns:1fr; gap:18px; }
+        .case-study-columns span { color:var(--muted, #9a9896); font:10px monospace; letter-spacing:1px; }
+        .case-study-columns p { color:var(--muted, #b7b4b0); font-size:13px; line-height:1.8; margin:8px 0 0; }
+        .case-study-detail .tag-row { margin-top:20px; }
+        @keyframes caseStudyIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+        @media (max-width:760px) { .case-studies-block { grid-template-columns:1fr; gap:22px; margin-top:55px; } .case-studies-heading p { max-width:520px; } .case-study-detail { padding-left:0; } .case-study-toggle { grid-template-columns:30px 1fr 24px; gap:10px; } }
+        @media (prefers-reduced-motion: reduce) { .case-study-detail { animation:none; } .filter-chip { transition:none; } }
+      `}</style>
     </main>
   );
 }
