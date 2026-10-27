@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 // Isi dengan alamat email asli; kalau kosong, tombol email otomatis disembunyikan.
-const CONTACT_EMAIL = "";
+const CONTACT_EMAIL = "maurishasaragih@gmail.com";
 
 const navItems = [
   { label: "About", href: "#about" },
