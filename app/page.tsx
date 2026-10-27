@@ -101,7 +101,7 @@ const socialLinks = [
           label: "Email",
           href: "https://mail.google.com/mail/?view=cm&fs=1&to=maurishasaragih@gmail.com",
           Icon: Mail,
-          external: false,
+          external: true,
         },
       ]
     : []),
