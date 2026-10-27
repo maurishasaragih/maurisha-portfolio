@@ -51,7 +51,7 @@ const projectItems = [
     category: "SYSTEMS & OPERATIONS",
     title: "Inventory Management & Operational Workflows",
     description:
-      "Applying hands-on inventory experience to understand stock movements, cycle counting, stock adjustments, and opportunities to improve operational workflows.",
+      "Applying hands-on inventory  to understand stock movements, cycle counting, stock adjustments, and opportunities to improve operational workflows.",
     tags: ["Inventory", "Cycle Count", "Workflow"],
     symbol: "⌘",
   },
@@ -221,7 +221,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="content-section experience-section" id="experience">
+      <section className="content-section -section" id="experience">
         <div className="section-wrap">
           <div className="section-heading">
             <span className="section-number">02 / EXPERIENCE</span>
@@ -231,18 +231,74 @@ export default function Home() {
               <em>been.</em>
             </h2>
           </div>
+
           <div className="experience-card">
             <div className="experience-icon">
               <BriefcaseBusiness size={21} strokeWidth={1.4} />
             </div>
             <div>
-              <span className="card-overline">PROFESSIONAL JOURNEY</span>
-              <h3>Experience, in progress.</h3>
+              <span className="card-overline">FEB 2022 — PRESENT · JAKARTA, INDONESIA</span>
+              <h3>System Analyst</h3>
+              <p className="experience-company">PT. Kamadjaja Logistics · Full-time / Independent</p>
               <p>
-                I&apos;m putting together the roles, responsibilities, and
-                lessons that shaped my path so far. Full details are coming
-                soon.
+                Support system analysis and implementation activities, including
+                Business Requirements Documents (BRD), User Acceptance Testing
+                (UAT), and go-live processes. Work with Warehouse Management
+                Systems (WMS) and B2B2C operational processes.
               </p>
+              <div className="tag-row">
+                <span>Warehouse Management Systems</span>
+                <span>B2B2C</span>
+                <span>BRD</span>
+                <span>UAT</span>
+                <span>Go-Live</span>
+              </div>
+            </div>
+            <span className="experience-arrow">↗</span>
+          </div>
+
+          <div className="experience-card">
+            <div className="experience-icon">
+              <BriefcaseBusiness size={21} strokeWidth={1.4} />
+            </div>
+            <div>
+              <span className="card-overline">APR 2021 — FEB 2022 · INDONESIA</span>
+              <h3>Functional Consultant</h3>
+              <p className="experience-company">BISA Indonesia · Contract</p>
+              <p>
+                Contributed to functional consulting activities, including
+                Business Requirements Documents (BRD), User Acceptance Testing
+                (UAT), and go-live support. Applied data analysis while working
+                with Odoo.
+              </p>
+              <div className="tag-row">
+                <span>Data Analysis</span>
+                <span>Odoo</span>
+                <span>BRD</span>
+                <span>UAT</span>
+                <span>Go-Live</span>
+              </div>
+            </div>
+            <span className="experience-arrow">↗</span>
+          </div>
+
+          <div className="experience-card">
+            <div className="experience-icon">
+              <BriefcaseBusiness size={21} strokeWidth={1.4} />
+            </div>
+            <div>
+              <span className="card-overline">AUG 2019 — AUG 2020 · TANGERANG, INDONESIA</span>
+              <h3>Admin Warehouse</h3>
+              <p className="experience-company">Blibli.com · Contract</p>
+              <p>
+                Handled outsourced manpower administration, managed warehouse
+                assets, and supported day-to-day warehouse operations.
+              </p>
+              <div className="tag-row">
+                <span>Warehouse Administration</span>
+                <span>Asset Management</span>
+                <span>Operations Support</span>
+              </div>
             </div>
             <span className="experience-arrow">↗</span>
           </div>
