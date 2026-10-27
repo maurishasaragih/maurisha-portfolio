@@ -31,28 +31,28 @@ const projectItems = [
   {
     number: "01",
     category: "WEB DEVELOPMENT",
-    title: "Websites & Digital Experiences",
+    title: "Personal Portfolio & Web Experiments",
     description:
-      "Website concepts and builds with clear structure, thoughtful details, and genuinely useful experiences.",
-    tags: ["Web", "UI/UX", "Responsive"],
+      "Building my personal portfolio while exploring modern web technologies, AI-assisted development, and responsive design.",
+    tags: ["Web Development", "AI Tools", "Learning"],
     symbol: "↗",
   },
   {
     number: "02",
     category: "DATA & INSIGHTS",
-    title: "Dashboards & Data Projects",
+    title: "Internal Dashboards & Operational Insights",
     description:
-      "Turning raw information into clear, practical insights that support better decisions.",
-    tags: ["Dashboards", "Data", "Insights"],
+      "Exploring how internal dashboards can improve operational visibility, monitoring, and decision-making.",
+    tags: ["Dashboards", "Reporting", "Operations"],
     symbol: "▥",
   },
   {
     number: "03",
     category: "SYSTEMS & OPERATIONS",
-    title: "Inventory & Internal Applications",
+    title: "Inventory Management & Operational Workflows",
     description:
-      "Internal tools and inventory workflows that make operational processes easier to understand and manage.",
-    tags: ["Inventory", "Workflow", "Automation"],
+      "Applying hands-on inventory experience to understand stock movements, cycle counting, stock adjustments, and opportunities to improve operational workflows.",
+    tags: ["Inventory", "Cycle Count", "Workflow"],
     symbol: "⌘",
   },
 ];
