@@ -144,7 +144,7 @@ const socialLinks = [
     ? [
         {
           label: "Email",
-          href: "https://mail.google.com/mail/?view=cm&fs=1&to=maurishasaragih@gmail.com",
+          href: `mailto:${CONTACT_EMAIL}`,
           Icon: Mail,
           external: true,
         },
@@ -156,6 +156,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [projectFilter, setProjectFilter] = useState("All");
   const [openCaseStudy, setOpenCaseStudy] = useState<string | null>(null);
+  const [openExperience, setOpenExperience] = useState<string | null>("kamadjaja");
 
   return (
     <main>
@@ -270,86 +271,160 @@ export default function Home() {
 
       <section className="content-section experience-section" id="experience">
         <div className="section-wrap">
-          <div className="section-heading">
+          <div className="section-heading timeline-heading">
             <span className="section-number">02 / EXPERIENCE</span>
             <h2>
-              Where I&apos;ve
+              My career
               <br />
-              <em>been.</em>
+              <em>journey.</em>
             </h2>
+            <p className="timeline-intro">
+              From warehouse operations to functional consulting and system analysis.
+              Select a role to explore the details.
+            </p>
           </div>
 
-          <div className="experience-card">
-            <div className="experience-icon">
-              <BriefcaseBusiness size={21} strokeWidth={1.4} />
-            </div>
-            <div>
-              <span className="card-overline">FEB 2022 — PRESENT · JAKARTA, INDONESIA</span>
-              <h3>System Analyst</h3>
-              <p className="experience-company">PT. Kamadjaja Logistics · Full-time / Independent</p>
-              <p>
-                Support system analysis and implementation activities, including
-                Business Requirements Documents (BRD), User Acceptance Testing
-                (UAT), and go-live processes. Work with Warehouse Management
-                Systems (WMS) and B2B2C operational processes.
-              </p>
-              <div className="tag-row">
-                <span>Warehouse Management Systems</span>
-                <span>B2B2C</span>
-                <span>BRD</span>
-                <span>UAT</span>
-                <span>Go-Live</span>
-              </div>
-            </div>
-            <span className="experience-arrow">↗</span>
-          </div>
+          <div className="career-timeline">
+            <span className="timeline-rail" aria-hidden="true" />
 
-          <div className="experience-card">
-            <div className="experience-icon">
-              <BriefcaseBusiness size={21} strokeWidth={1.4} />
-            </div>
-            <div>
-              <span className="card-overline">APR 2021 — FEB 2022 · INDONESIA</span>
-              <h3>Functional Consultant</h3>
-              <p className="experience-company">BISA Indonesia · Contract</p>
-              <p>
-                Contributed to functional consulting activities, including
-                Business Requirements Documents (BRD), User Acceptance Testing
-                (UAT), and go-live support. Applied data analysis while working
-                with Odoo.
-              </p>
-              <div className="tag-row">
-                <span>Data Analysis</span>
-                <span>Odoo</span>
-                <span>BRD</span>
-                <span>UAT</span>
-                <span>Go-Live</span>
-              </div>
-            </div>
-            <span className="experience-arrow">↗</span>
-          </div>
+            <article className={`timeline-item ${openExperience === "kamadjaja" ? "is-open" : ""}`}>
+              <button
+                type="button"
+                className="timeline-trigger"
+                aria-expanded={openExperience === "kamadjaja"}
+                onClick={() => setOpenExperience(openExperience === "kamadjaja" ? null : "kamadjaja")}
+              >
+                <span className="timeline-marker" aria-hidden="true"><span /></span>
+                <span className="timeline-date">FEB 2022 — PRESENT</span>
+                <span className="timeline-main">
+                  <span className="timeline-role">System Analyst</span>
+                  <span className="timeline-company">PT. Kamadjaja Logistics</span>
+                </span>
+                <span className="timeline-toggle" aria-hidden="true">{openExperience === "kamadjaja" ? "−" : "+"}</span>
+              </button>
+              {openExperience === "kamadjaja" && (
+                <div className="timeline-details">
+                  <div className="timeline-detail-icon"><BriefcaseBusiness size={20} strokeWidth={1.4} /></div>
+                  <div className="timeline-detail-copy">
+                    <span className="card-overline">JAKARTA, INDONESIA · FULL-TIME</span>
+                    <p>
+                      Support system analysis and implementation activities, including
+                      Business Requirements Documents (BRD), User Acceptance Testing
+                      (UAT), and go-live processes. Work with Warehouse Management
+                      Systems (WMS) and B2B2C operational processes.
+                    </p>
+                    <div className="tag-row">
+                      <span>Warehouse Management Systems</span><span>B2B2C</span><span>BRD</span><span>UAT</span><span>Go-Live</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </article>
 
-          <div className="experience-card">
-            <div className="experience-icon">
-              <BriefcaseBusiness size={21} strokeWidth={1.4} />
-            </div>
-            <div>
-              <span className="card-overline">AUG 2019 — AUG 2020 · TANGERANG, INDONESIA</span>
-              <h3>Admin Warehouse</h3>
-              <p className="experience-company">Blibli.com · Contract</p>
-              <p>
-                Handled outsourced manpower administration, managed warehouse
-                assets, and supported day-to-day warehouse operations.
-              </p>
-              <div className="tag-row">
-                <span>Warehouse Administration</span>
-                <span>Asset Management</span>
-                <span>Operations Support</span>
-              </div>
-            </div>
-            <span className="experience-arrow">↗</span>
+            <article className={`timeline-item ${openExperience === "bisa" ? "is-open" : ""}`}>
+              <button
+                type="button"
+                className="timeline-trigger"
+                aria-expanded={openExperience === "bisa"}
+                onClick={() => setOpenExperience(openExperience === "bisa" ? null : "bisa")}
+              >
+                <span className="timeline-marker" aria-hidden="true"><span /></span>
+                <span className="timeline-date">APR 2021 — FEB 2022</span>
+                <span className="timeline-main">
+                  <span className="timeline-role">Functional Consultant</span>
+                  <span className="timeline-company">BISA Indonesia</span>
+                </span>
+                <span className="timeline-toggle" aria-hidden="true">{openExperience === "bisa" ? "−" : "+"}</span>
+              </button>
+              {openExperience === "bisa" && (
+                <div className="timeline-details">
+                  <div className="timeline-detail-icon"><BriefcaseBusiness size={20} strokeWidth={1.4} /></div>
+                  <div className="timeline-detail-copy">
+                    <span className="card-overline">INDONESIA · CONTRACT</span>
+                    <p>
+                      Contributed to functional consulting activities, including
+                      Business Requirements Documents (BRD), User Acceptance Testing
+                      (UAT), and go-live support. Applied data analysis while working
+                      with Odoo.
+                    </p>
+                    <div className="tag-row">
+                      <span>Data Analysis</span><span>Odoo</span><span>BRD</span><span>UAT</span><span>Go-Live</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </article>
+
+            <article className={`timeline-item ${openExperience === "blibli" ? "is-open" : ""}`}>
+              <button
+                type="button"
+                className="timeline-trigger"
+                aria-expanded={openExperience === "blibli"}
+                onClick={() => setOpenExperience(openExperience === "blibli" ? null : "blibli")}
+              >
+                <span className="timeline-marker" aria-hidden="true"><span /></span>
+                <span className="timeline-date">AUG 2019 — AUG 2020</span>
+                <span className="timeline-main">
+                  <span className="timeline-role">Admin Warehouse</span>
+                  <span className="timeline-company">Blibli.com</span>
+                </span>
+                <span className="timeline-toggle" aria-hidden="true">{openExperience === "blibli" ? "−" : "+"}</span>
+              </button>
+              {openExperience === "blibli" && (
+                <div className="timeline-details">
+                  <div className="timeline-detail-icon"><BriefcaseBusiness size={20} strokeWidth={1.4} /></div>
+                  <div className="timeline-detail-copy">
+                    <span className="card-overline">TANGERANG, INDONESIA · CONTRACT</span>
+                    <p>
+                      Handled outsourced manpower administration, managed warehouse
+                      assets, and supported day-to-day warehouse operations.
+                    </p>
+                    <div className="tag-row">
+                      <span>Warehouse Administration</span><span>Asset Management</span><span>Operations Support</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </article>
           </div>
         </div>
+        <style jsx>{`
+          .timeline-heading { position: relative; }
+          .timeline-intro { max-width: 360px; margin: 24px 0 0 auto; color: var(--muted, #aaa); font-size: 0.95rem; line-height: 1.8; }
+          .career-timeline { position: relative; max-width: 1040px; margin: 70px auto 0; padding-left: 0; }
+          .timeline-rail { position: absolute; left: 13px; top: 18px; bottom: 34px; width: 1px; background: linear-gradient(to bottom, #c7ff54, rgba(199,255,84,.12)); }
+          .timeline-item { position: relative; padding: 0 0 24px 0; }
+          .timeline-trigger { width: 100%; display: grid; grid-template-columns: 28px minmax(150px, 205px) minmax(0, 1fr) 34px; align-items: center; gap: 22px; text-align: left; color: inherit; background: transparent; border: 1px solid rgba(255,255,255,.13); padding: 25px 28px 25px 0; cursor: pointer; transition: border-color .25s ease, background .25s ease; }
+          .timeline-trigger:hover, .timeline-item.is-open .timeline-trigger { border-color: rgba(199,255,84,.5); background: rgba(199,255,84,.025); }
+          .timeline-marker { position: relative; z-index: 1; display: grid; place-items: center; width: 27px; height: 27px; margin-left: 0; border: 1px solid rgba(199,255,84,.55); border-radius: 50%; background: #101010; }
+          .timeline-marker span { width: 7px; height: 7px; border-radius: 50%; background: #c7ff54; transition: transform .25s ease; }
+          .timeline-item.is-open .timeline-marker span { transform: scale(1.45); }
+          .timeline-date { color: #c7ff54; font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: .13em; line-height: 1.8; }
+          .timeline-main { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+          .timeline-role { font-size: clamp(1.1rem, 2vw, 1.55rem); font-weight: 500; letter-spacing: -.04em; }
+          .timeline-company { color: #a5a5a5; font-size: .9rem; }
+          .timeline-toggle { justify-self: end; color: #c7ff54; font-size: 25px; font-weight: 300; }
+          .timeline-details { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 22px; margin: 0 0 0 0; padding: 26px 34px 30px 0; border: 1px solid rgba(255,255,255,.13); border-top: 0; animation: reveal .25s ease both; }
+          .timeline-detail-icon { display: grid; place-items: center; width: 28px; height: 28px; color: #c7ff54; }
+          .timeline-detail-copy { max-width: 760px; }
+          .timeline-detail-copy p { margin: 14px 0 20px; color: #aaa; font-size: .95rem; line-height: 1.9; }
+          .timeline-detail-copy :global(.tag-row) { display: flex; flex-wrap: wrap; gap: 8px; }
+          .timeline-detail-copy :global(.tag-row span) { font-size: 10px; }
+          @keyframes reveal { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+          @media (max-width: 700px) {
+            .timeline-intro { margin: 20px 0 0; }
+            .career-timeline { margin-top: 42px; }
+            .timeline-rail { left: 10px; }
+            .timeline-trigger { grid-template-columns: 22px minmax(0, 1fr) 25px; gap: 13px; padding: 20px 14px 20px 0; }
+            .timeline-marker { width: 21px; height: 21px; }
+            .timeline-date { grid-column: 2; grid-row: 1; }
+            .timeline-main { grid-column: 2; grid-row: 2; }
+            .timeline-toggle { grid-column: 3; grid-row: 1 / span 2; }
+            .timeline-details { grid-template-columns: 22px minmax(0, 1fr); gap: 13px; padding: 20px 14px 24px 0; }
+            .timeline-detail-copy p { font-size: .88rem; }
+          }
+          @media (prefers-reduced-motion: reduce) { .timeline-trigger, .timeline-marker span { transition: none; } .timeline-details { animation: none; } }
+        `}</style>
       </section>
 
       <section className="content-section section-wrap" id="projects">
