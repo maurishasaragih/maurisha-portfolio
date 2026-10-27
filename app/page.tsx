@@ -14,7 +14,7 @@ import {
   X,
 } from "lucide-react";
 
-// Isi dengan alamat email asli; kalau kosong, tombol email otomatis disembunyikan.
+// GANTI YOUR_EMAIL@example.com dengan alamat email asli agar tombol Email berfungsi.
 const CONTACT_EMAIL = "maurishasaragih@gmail.com";
 
 const navItems = [
