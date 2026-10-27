@@ -99,7 +99,7 @@ const socialLinks = [
     ? [
         {
           label: "Email",
-          href: `mailto:${CONTACT_EMAIL}`,
+          href: "mailto:maurishasaragih@gmail.com",
           Icon: Mail,
           external: false,
         },
